@@ -5,17 +5,19 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public class MybatisTest {
 
+    private SqlSessionFactory sqlSessionFactory = null;
 
-
-
-
-    public static void testQueryUserById() throws Exception {
-        SqlSessionFactory sqlSessionFactory = null;
+    @Before
+    public void innit() throws IOException {
 
         // 1. 创建SqlSessionFactoryBuilder对象
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
@@ -24,7 +26,16 @@ public class MybatisTest {
         InputStream inputStream = Resources.getResourceAsStream("SqlMapConfig.xml");
 
         // 3. 创建SqlSessionFactory对象
-        sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
+        this.sqlSessionFactory = sqlSessionFactoryBuilder.build(inputStream);
+
+
+    }
+
+
+    @Test
+    public void testQueryUserById() {
+
+
 
         // 4. 创建SqlSession对象
         SqlSession sqlSession = sqlSessionFactory.openSession();
@@ -40,15 +51,27 @@ public class MybatisTest {
         sqlSession.close();
     }
 
-    public static void main(String[] args) {
 
-        try {
-            testQueryUserById();
-        } catch (Exception e) {
-            e.printStackTrace();
+    private String[] stringToList(String source){
+
+        if(!source.contains(",")){
+            return new String[]{source};
+        }else{
+            return source.split(",");
         }
-
     }
+
+    @Test
+    public void test(){
+        String s = "kshfajhf";
+        String[] strings = stringToList(s);
+        for (int i = 0; i <strings.length ; i++) {
+            System.out.println(strings[i]);
+
+        }
+    }
+
+
 
 }
 

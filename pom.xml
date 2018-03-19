@@ -51,6 +51,13 @@
             <version>${mysql-connector-java-version}</version>
         </dependency>
 
+        <!-- with junit4.8.2 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
+            <type>jar</type>
+        </dependency>
 
     </dependencies>
 
